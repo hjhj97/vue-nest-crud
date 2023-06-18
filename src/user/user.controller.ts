@@ -18,14 +18,19 @@ export class UserController {
     return this.userService.getAllUsers();
   }
 
+  @Get('/:id')
+  getUserById(@Param('id') id: number) {
+    return this.userService.getUserById(id);
+  }
+
   @Post('/')
   @UsePipes(ValidationPipe)
   createUser(@Body() createUserDto: CreateUserDto) {
     return this.userService.createUser(createUserDto);
   }
 
-  @Get('/:id')
-  getUserById(@Param('id') id: number) {
-    return this.userService.getUserById(id);
+  @Post('/signin')
+  signIn(@Body() createUserDto: CreateUserDto) {
+    return this.userService.signIn(createUserDto);
   }
 }
