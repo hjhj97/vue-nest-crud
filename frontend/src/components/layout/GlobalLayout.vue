@@ -12,7 +12,7 @@
 			isMobile: Boolean,
 		},
 		setup(props) {
-			const layoutRef = ref<HTMLElement>(null);
+			const layoutRef = ref<HTMLElement | null>(null);
 			onMounted(() => {
 				if (layoutRef.value && props.isMobile) {
 					layoutRef.value.style.maxWidth = '450px';
