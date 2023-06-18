@@ -28,9 +28,4 @@ export class UserController {
   createUser(@Body() createUserDto: CreateUserDto) {
     return this.userService.createUser(createUserDto);
   }
-
-  @Post('/signin')
-  signIn(@Body() createUserDto: CreateUserDto) {
-    return this.userService.signIn(createUserDto);
-  }
 }
