@@ -18,7 +18,7 @@ export class AuthService {
     if (user) {
       const isSame = await bcrypt.compare(password, user.password);
       if (isSame) {
-        const payload = { name };
+        const payload = { name, id: user.id };
         const accessToken = this.jwtService.sign(payload);
         return { accessToken };
       } else {

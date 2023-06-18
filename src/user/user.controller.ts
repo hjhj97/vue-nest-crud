@@ -4,11 +4,16 @@ import {
   Get,
   Param,
   Post,
+  Req,
+  UseGuards,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
+import { JwtAuthGuard } from 'src/auth/jwt/jwt-auth.guard';
+import { GetUser } from 'src/auth/get-user.decorator';
+import { User } from './user.entity';
 
 @Controller('user')
 export class UserController {
@@ -18,9 +23,10 @@ export class UserController {
     return this.userService.getAllUsers();
   }
 
-  @Get('/:id')
-  getUserById(@Param('id') id: number) {
-    return this.userService.getUserById(id);
+  @Get('/test')
+  @UseGuards(JwtAuthGuard)
+  getUserById(@GetUser() user: User) {
+    return this.userService.getUserById(user);
   }
 
   @Post('/')
