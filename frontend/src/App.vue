@@ -1,15 +1,16 @@
 <template>
-	<router-view />
+	<GlobalLayout :isMobile="false">
+		<router-view />
+	</GlobalLayout>
 </template>
 <script lang="ts">
 	import { defineComponent } from 'vue';
-	//import router from "./router";
+	import GlobalLayout from './components/layout/GlobalLayout.vue';
 
 	export default defineComponent({
+		components: { GlobalLayout },
 		setup() {
 			return {};
 		},
 	});
 </script>
-
-<style></style>
