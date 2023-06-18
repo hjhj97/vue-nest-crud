@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  Param,
   Post,
   UsePipes,
   ValidationPipe,
@@ -21,5 +22,10 @@ export class UserController {
   @UsePipes(ValidationPipe)
   createUser(@Body() createUserDto: CreateUserDto) {
     return this.userService.createUser(createUserDto);
+  }
+
+  @Get('/:id')
+  getUserById(@Param('id') id: number) {
+    return this.userService.getUserById(id);
   }
 }

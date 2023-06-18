@@ -1,4 +1,8 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
@@ -24,5 +28,13 @@ export class UserService {
 
   getAllUsers(): Promise<User[]> {
     return this.userRepository.find();
+  }
+
+  async getUserById(id: number) {
+    const found = await this.userRepository.findOneBy({ id });
+    if (!found) {
+      throw new NotFoundException();
+    }
+    return found;
   }
 }
