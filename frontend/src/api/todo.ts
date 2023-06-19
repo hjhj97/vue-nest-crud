@@ -9,3 +9,6 @@ export const createTodo = async (title: string) => {
 export const deleteTodo = async (id: number) => {
 	return await axios.delete(`/todo/${id}`);
 };
+export const toggleTodo = async (id: number, changed: boolean) => {
+	return await axios.patch(`/todo/${id}`, { changed });
+};

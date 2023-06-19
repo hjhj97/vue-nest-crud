@@ -7,7 +7,11 @@
 		</form>
 		<ul>
 			<li v-for="todo in todos" :key="todo.id">
-				<input type="checkbox" :checked="todo.isCompleted" />
+				<input
+					type="checkbox"
+					:checked="todo.isCompleted"
+					@click="onClickToggle(todo.id, !todo.isCompleted)"
+				/>
 				{{ todo.title }}
 				<button type="button" @click="onClickDelete(todo.id)">삭제</button>
 			</li>
@@ -17,7 +21,7 @@
 
 <script lang="ts">
 	import { defineComponent, onMounted, ref } from 'vue';
-	import { getMyTodos, createTodo, deleteTodo } from '@/api/todo';
+	import { getMyTodos, createTodo, deleteTodo, toggleTodo } from '@/api/todo';
 
 	export default defineComponent({
 		setup() {
@@ -49,11 +53,19 @@
 				}
 			};
 
+			const onClickToggle = async (id: number, changed: boolean) => {
+				const res = await toggleTodo(id, changed).catch((fail) => alert(fail));
+				if (res) {
+					fetchData();
+				}
+			};
+
 			return {
 				todos,
 				todoTitle,
 				handleSubmit,
 				onClickDelete,
+				onClickToggle,
 			};
 		},
 	});
