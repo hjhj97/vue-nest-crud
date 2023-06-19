@@ -9,6 +9,7 @@
 			<li v-for="todo in todos" :key="todo.id">
 				<input type="checkbox" :checked="todo.isCompleted" />
 				{{ todo.title }}
+				<button type="button" @click="onClickDelete(todo.id)">삭제</button>
 			</li>
 		</ul>
 	</div>
@@ -16,7 +17,7 @@
 
 <script lang="ts">
 	import { defineComponent, onMounted, ref } from 'vue';
-	import { getMyTodos, createTodo } from '@/api/todo';
+	import { getMyTodos, createTodo, deleteTodo } from '@/api/todo';
 
 	export default defineComponent({
 		setup() {
@@ -41,10 +42,18 @@
 				}
 			};
 
+			const onClickDelete = async (id: number) => {
+				const res = await deleteTodo(id).catch((fail) => alert(fail));
+				if (res) {
+					fetchData();
+				}
+			};
+
 			return {
 				todos,
 				todoTitle,
 				handleSubmit,
+				onClickDelete,
 			};
 		},
 	});

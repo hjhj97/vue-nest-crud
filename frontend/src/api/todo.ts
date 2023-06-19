@@ -6,3 +6,6 @@ export const getMyTodos = async () => {
 export const createTodo = async (title: string) => {
 	return await axios.post('/todo', { title });
 };
+export const deleteTodo = async (id: number) => {
+	return await axios.delete(`/todo/${id}`);
+};
