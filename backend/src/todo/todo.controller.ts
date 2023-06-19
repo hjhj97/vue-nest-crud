@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  Patch,
   Post,
   UseGuards,
   UsePipes,
@@ -34,5 +35,10 @@ export class TodoController {
   @Delete('/:id')
   deleteTodo(@Param('id') id: number) {
     return this.todoService.deleteTodo(id);
+  }
+
+  @Patch('/:id')
+  toggleTodo(@Param('id') id: number, @Body('changed') changed: boolean) {
+    return this.todoService.toggleTodo(id, changed);
   }
 }

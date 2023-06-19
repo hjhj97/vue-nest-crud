@@ -42,4 +42,13 @@ export class TodoService {
         message: '삭제 성공',
       };
   }
+
+  async toggleTodo(id: number, changed: boolean) {
+    const foundTodo = await this.todoRepository.findOne({ where: { id } });
+    if (!foundTodo) {
+      throw new NotFoundException('해당 게시물이 존재하지 않습니다.');
+    } else {
+      this.todoRepository.save({ ...foundTodo, isCompleted: changed });
+    }
+  }
 }
