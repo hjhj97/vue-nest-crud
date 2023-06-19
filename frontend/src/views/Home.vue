@@ -15,6 +15,7 @@
 
 <script lang="ts">
 	import { signIn } from '@/api/auth';
+	import router from '@/router';
 
 	import { defineComponent, onMounted, ref } from 'vue';
 
@@ -25,11 +26,12 @@
 				e.preventDefault();
 				const data = { ...loginData.value };
 
-				const res = await signIn(data).catch((fail: string) => {
+				const res: any = await signIn(data).catch((fail: string) => {
 					alert(fail);
 				});
 				if (res) {
-					console.log(res);
+					localStorage.setItem('access_token', res.accessToken);
+					router.replace({ name: 'TodoView' });
 				}
 			};
 
