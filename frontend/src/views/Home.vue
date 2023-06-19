@@ -14,7 +14,8 @@
 </template>
 
 <script lang="ts">
-	import axios from '@/plugins/axiosSetup';
+	import { signIn } from '@/api/auth';
+
 	import { defineComponent, onMounted, ref } from 'vue';
 
 	export default defineComponent({
@@ -24,14 +25,12 @@
 				e.preventDefault();
 				const data = { ...loginData.value };
 
-				const res = await axios.post('/auth/signin', data);
+				const res = await signIn(data).catch((fail: string) => alert(fail));
 				if (res) {
 					console.log(res);
 				}
 			};
-			onMounted(async () => {
-				const res = await axios.get('/');
-			});
+
 			return {
 				loginData,
 				//
