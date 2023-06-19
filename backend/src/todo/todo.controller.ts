@@ -1,7 +1,9 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
+  Param,
   Post,
   UseGuards,
   UsePipes,
@@ -26,7 +28,11 @@ export class TodoController {
   @Post('/')
   @UsePipes(ValidationPipe)
   createTodo(@Body() createTodoDto: CreateTodoDto, @GetUser() user: User) {
-    console.log(user);
     return this.todoService.createTodo(createTodoDto, user);
+  }
+
+  @Delete('/:id')
+  deleteTodo(@Param('id') id: number) {
+    return this.todoService.deleteTodo(id);
   }
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Todo } from './todo.entity';
 import { Repository } from 'typeorm';
@@ -31,5 +31,15 @@ export class TodoService {
 
     await this.todoRepository.save(newTodo);
     return newTodo;
+  }
+
+  async deleteTodo(id: number) {
+    const result = await this.todoRepository.delete(id);
+    if (result.affected === 0) {
+      throw new NotFoundException('해당 게시물이 존재하지 않습니다.');
+    } else
+      return {
+        message: '삭제 성공',
+      };
   }
 }
