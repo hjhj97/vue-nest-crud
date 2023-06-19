@@ -25,7 +25,9 @@
 				e.preventDefault();
 				const data = { ...loginData.value };
 
-				const res = await signIn(data).catch((fail: string) => alert(fail));
+				const res = await signIn(data).catch((fail: string) => {
+					alert(fail);
+				});
 				if (res) {
 					console.log(res);
 				}
