@@ -12,6 +12,14 @@ export class TodoService {
     private readonly todoRepository: Repository<Todo>,
   ) {}
 
+  async getTodoById(id: number) {
+    const todo = await this.todoRepository.findOneBy({ id });
+    if (!todo) {
+      throw new NotFoundException('No Such Todo!');
+    }
+    return todo;
+  }
+
   async getMyTodos(user: User) {
     const query = this.todoRepository
       .createQueryBuilder('todo')
