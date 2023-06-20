@@ -28,4 +28,10 @@ export class CommentsService {
     await this.commentRepository.save(newComment);
     return newComment;
   }
+
+  async getAllCommentsByTodoId(id: number) {
+    const todo = await this.todoService.getTodoById(id);
+    const found = await this.commentRepository.findBy({ todo });
+    return found;
+  }
 }

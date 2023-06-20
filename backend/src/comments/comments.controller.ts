@@ -1,4 +1,4 @@
-import { Body, Controller, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt-auth.guard';
 import { GetUser } from 'src/auth/get-user.decorator';
@@ -9,6 +9,11 @@ import { CommentsService } from './comments.service';
 @UseGuards(JwtAuthGuard)
 export class CommentsController {
   constructor(private readonly commentService: CommentsService) {}
+
+  @Get('/:id')
+  getAllCommentsByTodoId(@Param('id') id: number) {
+    return this.commentService.getAllCommentsByTodoId(id);
+  }
 
   @Post('/:id')
   createComment(
